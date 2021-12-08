@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     private lateinit var rvResep: RecyclerView
     private var list: ArrayList<Resep> = arrayListOf()
+    private var tempList:ArrayList<Resep> =  arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         rvResep = findViewById(R.id.rvResep)
         rvResep.setHasFixedSize(true)
         list.addAll(ResepData.listData)
+        tempList.addAll(list)
         showRecyclerList()
 
     }
@@ -41,18 +46,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        setMode(item.itemId)
-        return super.onOptionsItemSelected(item)
-    }
-    private fun setMode(selectedMode: Int) {
-        when (selectedMode) {
-            R.id.Profile -> {
-                val intent = Intent(this@MainActivity,Profile::class.java)
-                startActivity(intent)
-            }
-        }
-    }
+
 
 
     private fun showResepSelected(resep: Resep) {
